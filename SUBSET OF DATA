@@ -1,0 +1,7 @@
+#create a subset data
+data(IMDb_dataset)
+names(IMDb_Dataset)
+?IMDb_dataset
+View(IMDb_Dataset)
+#subset()
+summary(IMDb_Dataset$Year)
