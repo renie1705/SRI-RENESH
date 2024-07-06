@@ -1,0 +1,48 @@
+# Load necessary libraries
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+
+# Ensure correct reading of the dataset
+head(IMDb_Dataset)
+
+# Distribution of IMDb Ratings
+ggplot(IMDb_Dataset,aes(Title,fill=IMDb.Rating,color=Year))+
+  geom_boxplot(alpha=0.5)
+
+#Distribution of Movie Durations
+ggplot(IMDb_Dataset, aes(x = Duration..minutes.)) +
+  geom_histogram(binwidth = 10, fill = 'green', color = 'black') +
+  theme_minimal() +
+  labs(title = 'Distribution of Movie Durations', x = 'Duration (minutes)', y = 'Count')
+
+#Relationship Between IMDb Rating and MetaScore
+ggplot(IMDb_Dataset, aes(x = MetaScore, y = IMDb.Rating)) +
+  geom_point(color = 'red') +
+  theme_minimal() +
+  labs(title = 'IMDb Rating vs MetaScore', x = 'MetaScore', y = 'IMDb Rating')
+
+#Average IMDb Rating by Genre
+avg_rating_genre <- IMDb_Dataset %>%
+  group_by(Genre) %>%
+  summarize(Average_Rating = mean(IMDb.Rating, na.rm = TRUE)) %>%
+  arrange(desc(Average_Rating))
+
+#Relationship Between Movie Duration and IMDb Rating
+ggplot(data, aes(x = Duration..minutes., y = IMDb.Rating)) +
+  geom_point(color = 'orange') +
+  theme_minimal() +
+  labs(title = 'Movie Duration vs IMDb Rating', x = 'Duration (minutes)', y = 'IMDb Rating')
+
+#Distribution of Movies by Year
+# Ensure the Year column is treated as numeric for proper binning
+data$Year <- as.numeric(data$Year)
+
+# Distribution of Movies by Year
+ggplot(data, aes(x = Year)) +
+  geom_histogram(binwidth = 1, fill = 'cyan', color = 'black') +
+  theme_minimal() +
+  labs(title = 'Distribution of Movies by Year', x = 'Year', y = 'Count')
+
+
+
